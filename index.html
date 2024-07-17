@@ -1,4 +1,3 @@
-Copy code
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +9,7 @@ Copy code
 <body>
   <a-scene vr-mode-ui='enabled: false' arjs='sourceType: webcam; videoTexture: true; debugUIEnabled: false' renderer='antialias: true; alpha: true'>
     <a-camera gps-new-camera='gpsMinDistance: 5'></a-camera>
-    <a-entity id="box" material='color: red' geometry='primitive: box' scale="30 30 30"></a-entity>
+    <a-entity id="box" material='color: red' geometry='primitive: box' scale="20 20 20"></a-entity>
   </a-scene>
 
   <script>
@@ -21,8 +20,15 @@ Copy code
           const latitude = position.coords.latitude;
           const longitude = position.coords.longitude;
 
+          console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+
           const entity = document.getElementById('box');
           entity.setAttribute('gps-new-entity-place', `latitude: ${latitude}; longitude: ${longitude}`);
+
+          // Log the updated entity attributes for debugging
+          console.log(entity.getAttribute('gps-new-entity-place'));
+        }, function (error) {
+          console.error(`Geolocation error: ${error.message}`);
         });
       } else {
         alert("Geolocation is not supported by this browser.");
